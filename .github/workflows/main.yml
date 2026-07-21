@@ -22,18 +22,21 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
 
-      - name: Setup Gradle
+      - name: Set up Gradle 8.10.2
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
 
-      - name: Build
+      - name: Build plugins
         run: gradle clean build --stacktrace
 
-      - name: Upload Artifacts
+      - name: Upload plugin JARs
         uses: actions/upload-artifact@v4
         with:
-          name: MineTopFakePlayers
+          name: MineTopFakePlayers-JARs
+          if-no-files-found: error
           path: |
             paper/build/libs/*.jar
             velocity/build/libs/*.jar
