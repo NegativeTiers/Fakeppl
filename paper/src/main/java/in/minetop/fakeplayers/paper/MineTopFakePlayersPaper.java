@@ -2,7 +2,6 @@ package in.minetop.fakeplayers.paper;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.trait.SkinTrait;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -98,13 +97,36 @@ public final class MineTopFakePlayersPaper extends JavaPlugin {
         return true;
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private boolean skin(CommandSender sender, String[] args) {
-        if (args.length < 3) return msg(sender, "Usage: /fake skin <name> <MinecraftName>", NamedTextColor.YELLOW);
+        if (args.length < 3) {
+            return msg(sender, "Usage: /fake skin <name> <MinecraftName>", NamedTextColor.YELLOW);
+        }
+
         NPC npc = find(args[1]);
-        if (npc == null) return msg(sender, "Fake player not found.", NamedTextColor.RED);
-        npc.getOrAddTrait(SkinTrait.class).setSkinName(args[2]);
-        if (npc.isSpawned()) { Location l = npc.getEntity().getLocation(); npc.despawn(); npc.spawn(l); }
-        return msg(sender, "Skin updated.", NamedTextColor.GREEN);
+        if (npc == null) {
+            return msg(sender, "Fake player not found.", NamedTextColor.RED);
+        }
+
+        try {
+            Class<?> skinTraitClass = Class.forName("net.citizensnpcs.trait.SkinTrait");
+            Object skinTrait = npc.getOrAddTrait((Class) skinTraitClass);
+            skinTraitClass.getMethod("setSkinName", String.class).invoke(skinTrait, args[2]);
+
+            if (npc.isSpawned()) {
+                Location location = npc.getEntity().getLocation();
+                npc.despawn();
+                npc.spawn(location);
+            }
+
+            return msg(sender, "Skin updated.", NamedTextColor.GREEN);
+        } catch (ClassNotFoundException e) {
+            getLogger().warning("Citizens SkinTrait class was not found. Install a compatible Citizens build.");
+            return msg(sender, "Skin support is unavailable with this Citizens version.", NamedTextColor.RED);
+        } catch (ReflectiveOperationException e) {
+            getLogger().warning("Could not apply NPC skin: " + e.getMessage());
+            return msg(sender, "Could not update skin. Check console.", NamedTextColor.RED);
+        }
     }
 
     private boolean follow(CommandSender sender, String[] args) {
