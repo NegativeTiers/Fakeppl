@@ -1,0 +1,13 @@
+# These NPCs are visual mannequins on the Paper backend.
+# The separate Velocity plugin changes only the server-list ping count/sample.
+
+npc:
+  glowing: false
+  invulnerable: true
+  gravity: false
+  collidable: false
+  name-visible: true
+  equipment:
+    chestplate: LEATHER_CHESTPLATE
+    leggings: LEATHER_LEGGINGS
+    boots: LEATHER_BOOTS

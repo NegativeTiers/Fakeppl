@@ -1,0 +1,22 @@
+MINETOP FAKE PLAYERS - GITHUB UPLOAD
+
+METHOD A (recommended):
+1. Extract this ZIP.
+2. Open your GitHub repository -> Code -> Add file -> Upload files.
+3. Drag EVERYTHING INSIDE the extracted folder onto the upload page.
+4. Commit changes.
+5. Open Actions -> Build MineTopFakePlayers -> Run workflow.
+6. After the green tick, open the run and download MineTopFakePlayers-JARs under Artifacts.
+
+IF .github DOES NOT UPLOAD:
+1. Upload all normal source files first.
+2. Open repository -> Actions -> set up a workflow yourself.
+3. Delete the example text in the editor.
+4. Copy all text from GITHUB-WORKFLOW-build.yml into the editor.
+5. Ensure filename shown above editor is: .github/workflows/build.yml
+6. Click Commit changes.
+
+INSTALL:
+- Paper JAR -> backend server /plugins
+- Velocity JAR -> proxy /plugins
+- Restart both servers.
