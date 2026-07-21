@@ -2,7 +2,7 @@ package in.minetop.fakeplayers.paper;
 
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.api.trait.trait.SkinTrait;
+import net.citizensnpcs.trait.SkinTrait;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
