@@ -1,0 +1,14 @@
+name: MineTopFakePlayers
+version: 2.0.0
+main: in.minetop.fakeplayers.paper.MineTopFakePlayersPaper
+api-version: '1.21'
+author: MineTop
+depend: [Citizens]
+commands:
+  fakeplayer:
+    description: Manage MineTop fake player NPCs
+    usage: /fakeplayer
+    aliases: [fp, fake]
+permissions:
+  minetop.fakeplayers.admin:
+    default: op
